@@ -1,0 +1,27 @@
+$def with (data)
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../static/css/stylesheets.css">
+	<script src="../static/js/jquery-1.9.1.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+	<script src="../static/js/app.js"></script>
+	
+</head>
+
+<div class="nav">
+	<img id="logo" style"-webkit-user-select: none" src="http://d33w9bm0n1egwm.cloudfront.net/assets/splash5/Logo_Horizontal_Red.png">
+</div>
+
+<div id='imageDiv' style="display:none">$data[0]</div>
+<div id='commentsDiv' style="display:none">$data[1]</div>
+
+<body onload="loadPosts('imageDiv', 'commentsDiv')">
+	<form id="speed">
+		Speed (milliseconds):<br>
+		<input type="text" id="speedInput">
+		<br>
+	</form>
+
+</body>
+</html>

@@ -1,42 +1,52 @@
-window.loadPosts = function (imageDiv, commentsDiv) {
-	var images = document.getElementById(imageDiv).innerHTML;
-	var comments = document.getElementById(commentsDiv).innerHTML;
-	// data = data.replace(/\\/g, '');
-	images = images.replace(/u'/g, "'");
-	images = images.replace(/'/g, "\"");
-	images = JSON.parse(images);
-
-	// comments = comments.replace(/u'/g, "'");
-	// comments = comments.replace(/u"/g, "\"");
-	// comments = comments.replace(/'/g, "\"");
-	// comments = JSON.parse(comments);
-
-	body = document.getElementsByTagName("body");
-	var html_string = '';
-	var i = 0;
-	for(image in images){
-		var obj;
-		if( images[image] === ""){
-			// obj = comments['comments'];
-			// html_string += '<div class=post comment' + i + '">' +
-			// 	'<div class=post-content">' +
-			// 		'<h2 class=post-comment>' + obj + "</h2>" +
-			// 	'</div>' +
-			// '</div>';
-		} else {
-			obj = images[image];
-			html_string += '<div class="post post' + i + '">' +
-				'<div class="post-content">' +
-					'<img class="post-image" src=' + obj + '>' +
-				'</div>' +
-			'</div>';
-		} 
-		i++;
-	}
-	if(document.body !=null) {document.body.innerHTML += html_string;}
-};
-
 $(document).ready(function() {
+
+	window.loadPosts = function (imageDiv, commentsDiv) {
+		var images = document.getElementById(imageDiv).innerHTML;
+		var comments = document.getElementById(commentsDiv).innerHTML;
+		// data = data.replace(/\\/g, '');
+		images = images.replace(/u'/g, "'");
+		images = images.replace(/'/g, "\"");
+		images = JSON.parse(images);
+
+		comments = comments.replace(/u'/g, "\"");
+		comments = comments.replace(/u"/g, "\"");
+		comments = comments.replace(/',/g, "\",");
+		comments = comments.replace(/']/g, "\"]");
+		comments = comments.replace(/""/g, "\"'");
+		comments = comments.replace(/\."/g, "'");
+		comments = JSON.parse(comments);
+
+		body = document.getElementsByTagName("body");
+		var html_string = '';
+		var i = 0;
+		for(index in images){
+			var obj;
+			var comment = comments[index];
+			if (comment.length > 80) {
+				comment = comment.slice(0,80) + '...'
+			}
+			if( images[index] === ""){
+				html_string += '<div class="post comment' + i + '">' +
+					'<div class="post-content">' +
+						'<h2 class="post-comment">' + comment + '</h2>' +
+						'<div class="post-background"></div>' +
+					'</div>' +
+				'</div>';
+			} else {
+				obj = images[index];
+				html_string += '<div class="post image' + i + '">' +
+					'<div class="post-content">' +
+						'<h2 class="post-comment-hidden">' + comment + "</h2>" +
+						'<img class="post-image" src=' + obj + '>' +
+					'</div>' +
+				'</div>';
+			} 
+			i++;
+		}
+		if(document.body !=null) {document.body.innerHTML += html_string;}
+	};
+
+
 	var posts;
 	var selectors = '';
 	$(window).load(function() {
@@ -50,23 +60,28 @@ $(document).ready(function() {
 		};
 		draggables(posts);
 		animateDivs();
-
-		$(selectors).off('click', animateDivs());
-		$(selectors).on('click', animateDivs());
 	});
 
 
 
+	$(document).on({
+    	mouseenter: function () {
+	        var innerDiv = $(this).children();
+	        originalOpacity = $(innerDiv).children()[1].style.opacity;
+			if (innerDiv.children()[0].className != 'post-comment') {
+				$(innerDiv).children()[0].style.visibility = 'visible';
+				$(innerDiv).children()[1].style.opacity = '.6';
+			}
+    	},
+    	mouseleave: function () {
+            var innerDiv = $(this).children();
+			if (innerDiv.children()[0].className != 'post-comment') {
+				$(innerDiv).children()[0].style.visibility = 'hidden';
+				$(innerDiv).children()[1].style.opacity = 1;
+			};
+    	}
+	}, ".post");
 
-
-	function draggables(posts) {
-		for (var i = 0; i < posts.length; i++) {
-			$(posts[i]).draggable({
-		    	containment: 'body',
-		    	scroll: 'false'
-		    });	
-		};
-	};
 });
 
 function animateDivs() {	
@@ -74,11 +89,6 @@ function animateDivs() {
 	var posts = document.getElementsByClassName("post");
 	for (var i = 0; i <posts.length; i++) {
 		continueAnimate(posts[i]);
-		// var position = newPositions();
-		// $(posts[i]).animate({top: position[0], left: position[1]}, 10000, function(){
-		// 	// continueAnimate(posts[i]);
-		// 	animateDivs();
-		// });
 	};
 };
 
@@ -101,16 +111,18 @@ function continueAnimate(post) {
 // Get new positions for the div images
 function newPositions() {
 	var body = document.getElementsByTagName("body");
-	var height = window.screen.height;
+	var height = window.screen.height+500;
 	var width = window.screen.width - 1300;
 	var randomH = Math.floor(Math.random() * height);
 	var randomW = Math.floor(Math.random() * width);
 	return [randomH, randomW];
 };
 
-//Get user input on the speed of the animation
-function getSpeed(){
-	var text = document.getElementById('speedInput');
-	return text;
-}
-
+function draggables(posts) {
+	for (var i = 0; i < posts.length; i++) {
+		$(posts[i]).draggable({
+		    containment: 'body',
+		    scroll: 'false'
+		});	
+	};
+};

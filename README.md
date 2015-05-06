@@ -1,8 +1,8 @@
 #Tint Bubble Theme
 
-This is a new Tint theme designed to give the users something different.
-The Bubble Theme allows users to allow their pictures and posts to float
-around in the page in a random fashion.
+This is a new Tint theme designed to give the users a bubbly and relaxed feel.
+The Bubble Theme allows users to make their pictures and posts float around
+in the page in a random fashion.
 
 ##Usage
 
@@ -20,7 +20,7 @@ The tools needed for this project are Flask, pip, and requests.
 These are easy to install with the commands:
 
 * `pip install Flask`
-* `pip install `requests`
+* `pip install requests`
 
 Now you are ready to run the application. You can also easily deploy your
 application to heroku by creating a Procfile and installing gunicorn with

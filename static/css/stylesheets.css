@@ -2,9 +2,10 @@ html, body {
 	margin: 0;
 	height: 200%;
 	width: 100%;
-	padding-left: 10px;
-	padding-right: 10px;
-	font-family: "Helvetica Neue";
+	padding-left: 5px;
+	padding-right: 5px;
+	font-family: Helvetica;
+	position: relative;
 }
 
 .nav {
@@ -35,14 +36,6 @@ html, body {
 	margin-right: 10px;
 }
 
-/*#speed-text {
-	position: relative;
-	font-family: helvetica;
-	color: #ff564b;
-	font-size: 14px;
-	font-weight: 300;
-}*/
-
 .post-image {
 	float: left;
 	display: inline-block;
@@ -50,8 +43,6 @@ html, body {
 	height: 250px;
 	border-radius: 150px;
 	position: absolute;
-	/*border: 10px;*/
-	/*z-index:2;*/
 }
 
 .post {
@@ -60,6 +51,9 @@ html, body {
 	height: 250px;
 	border-radius: 150px;
 	position: relative;
+	display: block;
+	float: left;
+	top:50px;
 	border: 2px solid black;
 }
 
@@ -67,16 +61,9 @@ html, body {
 	font-family: Arial;
 	color:white;
 	padding: 25px;
-/*	width: 250px;
-	height: 250px;
-	border-radius: 150px;*/
 	text-align: center;
-	/*background-color:black; */
-	/*opacity:.3;*/
 	position: absolute;
 	visibility: hidden;
-	/*padding: 25px;*/
-	/*border-radius: 150px;*/
 	z-index:1;
 }
 
@@ -90,13 +77,10 @@ html, body {
 }
 
 .post-content {
-	/*background-color:black; */
-	/*opacity:.4;*/
 	position: absolute;
 	width: 250px;
 	height: 250px;
 	border-radius: 150px;
-/*	z-index: 1;*/
 }
 
 .post-background {
@@ -104,7 +88,7 @@ html, body {
 	 height:250px;
 	 position: absolute;
 	 border-radius: 150px;
-	 background-color:#707070 ; 
+	 background-color:#A0A0A0 ; 
 }
 
 

@@ -3,7 +3,8 @@ $(document).ready(function() {
 	window.loadPosts = function (imageDiv, commentsDiv) {
 		var images = document.getElementById(imageDiv).innerHTML;
 		var comments = document.getElementById(commentsDiv).innerHTML;
-		// data = data.replace(/\\/g, '');
+		
+		//putting the text to the right format before JSON parsing
 		images = images.replace(/u'/g, "'");
 		images = images.replace(/'/g, "\"");
 		images = JSON.parse(images);
@@ -46,9 +47,10 @@ $(document).ready(function() {
 		if(document.body !=null) {document.body.innerHTML += html_string;}
 	};
 
-
 	var posts;
 	var selectors = '';
+
+	// only after the divs have dynamically loaded, add animate and draggable effects
 	$(window).load(function() {
 		var posts = document.getElementsByClassName("post");
 		for (var i = 0; i < posts.length; i++) {
@@ -63,8 +65,8 @@ $(document).ready(function() {
 	});
 
 
-
 	$(document).on({
+		// display the picture's comment when hovering
     	mouseenter: function () {
 	        var innerDiv = $(this).children();
 	        originalOpacity = $(innerDiv).children()[1].style.opacity;
@@ -84,14 +86,16 @@ $(document).ready(function() {
 
 });
 
+// function that start the animations
 function animateDivs() {	
 	//animate the div images
 	var posts = document.getElementsByClassName("post");
-	for (var i = 0; i <posts.length; i++) {
+	for (var i = 0; i < posts.length; i++) {
 		continueAnimate(posts[i]);
 	};
 };
 
+//function that continues the animation
 function continueAnimate(post) {
 	var position = newPositions();
 	//Get user input on the speed of the animation
@@ -110,9 +114,8 @@ function continueAnimate(post) {
 
 // Get new positions for the div images
 function newPositions() {
-	var body = document.getElementsByTagName("body");
-	var height = window.screen.height+500;
-	var width = window.screen.width - 1300;
+	var height = window.screen.height;
+	var width = window.screen.width-1300;
 	var randomH = Math.floor(Math.random() * height);
 	var randomW = Math.floor(Math.random() * width);
 	return [randomH, randomW];

@@ -10,7 +10,7 @@ Provided are the static pages and the python file for this theme. To run
 it, you will need a server to make requests to the posts that you want to
 receive. At this moment, Tint api requests are only available to premium
 users. In app.py, you will need to put your name for the variable `name`
-and replace the `str(os.environ.get('TINT_API_KEY'))` with your own api key.
+and replace the `api_key` variable with your own api key.
 Now run your server. I chose to use Flask as my web framework for this project.
 If you are using the Flask server, run "python app.py".
 

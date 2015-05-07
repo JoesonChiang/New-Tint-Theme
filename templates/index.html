@@ -4,6 +4,7 @@
 	<link rel="stylesheet" type="text/css" href="../static/css/stylesheets.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+	<script src='../static/jquerycollision1.0.2min/jquery-collision.min.js'></script>
 	<script src="../static/js/app.js"></script>
 	
 </head>
@@ -14,7 +15,11 @@
 			<img id="logo" style"-webkit-user-select: none" src="http://d33w9bm0n1egwm.cloudfront.net/assets/splash5/Logo_Horizontal_Red.png">
 		</li>
 		<li class='nav-items'>
-			<form id="form-speed"><input type="text" id="speedInput" placeholder="Speed (milliseconds)">
+			<form class="form"><input type="text" id="collisionInput" placeholder="Collisions (true or false)">
+			</form>
+		</li>
+		<li class='nav-items'>
+			<form class="form"><input type="text" id="speedInput" placeholder="Speed (seconds)">
 			</form>
 		</li>
 	</ul>
@@ -23,7 +28,10 @@
 <div id='imageDiv' style="display:none">{{ data[0] }}</div>
 <div id='commentsDiv' style="display:none">{{ data[1] }}</div>
 
-<body onload="loadPosts('imageDiv', 'commentsDiv')">
+<script type="text/javascript">
+	loadPosts({{ data[0]|safe }}, {{ data[1]|safe }});
+</script>
+<body>
 
 </body>
 </html>

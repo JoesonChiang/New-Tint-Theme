@@ -14,6 +14,13 @@ and replace the `str(os.environ.get('TINT_API_KEY'))` with your own api key.
 Now run your server. I chose to use Flask as my web framework for this project.
 If you are using the Flask server, run "python app.py".
 
+When the app is running, you can hover over the pictures to reveal the comments
+or statuses. Also, you can also change the speed of the moving pictures by inputting
+a number on the top search bar specified by _Speed (seconds)_. 
+
+You can also choose to see collisions within the photos by setting `true` on the
+top search bar specified by _Collisions (true or false)_. 
+
 
 ##Installation
 The tools needed for this project are Flask, pip, and requests.

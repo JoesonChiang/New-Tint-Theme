@@ -25,13 +25,9 @@
 	</ul>
 </div>
 
-<div id='imageDiv' style="display:none">{{ data[0] }}</div>
-<div id='commentsDiv' style="display:none">{{ data[1] }}</div>
-
+<body>
 <script type="text/javascript">
 	loadPosts({{ data[0]|safe }}, {{ data[1]|safe }});
 </script>
-<body>
-
 </body>
 </html>

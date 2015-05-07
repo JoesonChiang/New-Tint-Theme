@@ -16,10 +16,10 @@ If you are using the Flask server, run "python app.py".
 
 When the app is running, you can hover over the pictures to reveal the comments
 or statuses. Also, you can also change the speed of the moving pictures by inputting
-a number on the top search bar specified by _Speed (seconds)_. 
+a number on the top search bar specified by _Speed (seconds)_ (20 seconds by default).
 
 You can also choose to see collisions within the photos by setting `true` on the
-top search bar specified by _Collisions (true or false)_. 
+top search bar specified by _Collisions (true or false)_ (false by default);
 
 
 ##Installation
@@ -36,6 +36,7 @@ application to heroku by creating a Procfile and installing gunicorn with
 ## Credits and Acknowledgements
 
 * jQuery and jQueryUI hosted by Google
+* jQuery Collision Plugin
 * Flask
 * Heroku
 * Tint

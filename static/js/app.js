@@ -1,13 +1,13 @@
 $(document).ready(function() {
 
-	// only after the divs have dynamically loaded, add animate and draggable effects
+	// Only after the divs have dynamically loaded, add animate and draggable effects
 	$(window).load(function() {
 		var posts = document.getElementsByClassName("post");
 		draggables(posts);
 		animateDivs();
 	});
 
-	// bind the loaded elements with the hovering effect
+	// Bind the loaded elements with the hovering effect
 	$(document).on({
     	mouseenter: function () {
 	        var innerDiv = $(this).children();
@@ -25,7 +25,7 @@ $(document).ready(function() {
     	}
 	}, ".post");
 
-	//set an interval for checking collisions
+	//Set an interval for checking collisions
 	setInterval(function(){
 		var runCollisions =  false;
 		if (document.getElementById('collisionInput').value == 'true') {runCollisions = true;}
@@ -37,11 +37,10 @@ $(document).ready(function() {
 
 //loads all the post after the API request data has been rendered in the template
 function loadPosts(images, comments) {
-
 	body = document.getElementsByTagName("body");
 	var html_string = '';
 	var i = 0;
-	postsPerRow = Math.floor(window.screen.width / 300)
+	postsPerRow = Math.floor(window.screen.width / 300);
 	var currentW = 0;
 	var currentH = 50;
 
@@ -60,6 +59,7 @@ function loadPosts(images, comments) {
 					'<div class="post-background"></div>' +
 				'</div>' +
 			'</div>';
+
 		} else {
 			html_string += '<div class="post image' + i + '" style="top:'+ currentH +'px;left:' + currentW + 'px">' +
 				'<div class="post-content">' +
@@ -68,10 +68,11 @@ function loadPosts(images, comments) {
 				'</div>' +
 			'</div>';
 		} 
+
 		i++;
 		currentW += 300;
 
-		if ( i % postsPerRow == 0){
+		if ((i % postsPerRow) == 0){
 			currentW = 0
 			currentH += 300;
 		}
@@ -79,16 +80,15 @@ function loadPosts(images, comments) {
 	if(document.body !=null) {document.body.innerHTML += html_string;}
 };
 
-// function that start the animations
+// Function that start the animations
 function animateDivs() {	
-	//animate the div images
 	var posts = document.getElementsByClassName("post");
 	for (var i = 0; i < posts.length; i++) {
 		continueAnimate(posts[i]);
 	};
 };
 
-//function that continues the animation
+//Function that continues the animation
 function continueAnimate(post) {
 	var position = newPositions();
 
@@ -98,16 +98,12 @@ function continueAnimate(post) {
 	if( speed != undefined && speed != null && speed != "") {
 		speed = parseInt(speed)*1000;
 		$(post).animate({top: position[0] + 50, left: position[1]}, speed, function(){
-			continueAnimate(post); 
-		});
+			continueAnimate(post); });
 	} else {
 		$(post).animate({top: position[0] + 50, left: position[1]}, 20000, function(){
-			continueAnimate(post); 
-		});
+			continueAnimate(post); });
 	}
 };
-
-
 
 // Get new positions for the div images
 function newPositions() {
@@ -118,7 +114,7 @@ function newPositions() {
 	return [randomH, randomW];
 };
 
-
+// Every Post will become draggable if animation is turned off
 function draggables(posts) {
 	for (var i = 0; i < posts.length; i++) {
 		$(posts[i]).draggable({
@@ -128,26 +124,14 @@ function draggables(posts) {
 	};
 };
 
-function getDirectionPositions(direction) {
-	var newPositions;
-	if (direction === 'N' || direction === "NE" || direction === 'NW') {
-		newPositions = [(-10, 0), (10, 0)];
-	} else if (direction === 'S' || direction === "SE" || direction === 'SW') {
-		newPositions = [(10, 0), (-10, 0)];
-	} else if (direction === 'E') {
-		newPositions = [(0, -10), (0, 10)];
-	} else {
-		newPositions = [(0, 10), (0, -10)];
-	}
-	return newPositions;
-};
-
-
+// Uses jQuery's collision plugin to detect collisions and the direction of collision
 function checkCollisions() {
 	if (document.getElementById('collisionInput').value != 'true') {return;}
+
 	$(".post").each( function() {
 	    var hit_area = $(this).collision(".post", {directionData: "direction", as: "<div/>" });
 	    var colliders = $(this).collision(".post");
+	    
 	    if (colliders.length > 1){ 
 	    	var direction = $(hit_area[1]).data("direction");
 	    	animateRebounding(this, colliders[1], direction);
@@ -155,6 +139,7 @@ function checkCollisions() {
 	});
 };
 
+//Once collided, elements should be rebounding in opposite directions
 function animateRebounding(collider1, collider2, direction) {
 	var newPositions = getDirectionPositions(direction);
 
@@ -168,10 +153,25 @@ function animateRebounding(collider1, collider2, direction) {
 	var currentPosition1 = [pos1.top, pos1.left];
 	var currentPosition2 = [pos2.top, pos2.left];
 
-	$(collider1).animate({top: currentPosition1[0] + newPositions[0][0] + 50, left: currentPosition1[1] + newPositions[0][1]}, 2000, function(){
-		continueAnimate(collider1); 
+	$(collider1).animate({top: currentPosition1[0] + newPositions[0][0] + 50, left: currentPosition1[1] + 
+		newPositions[0][1]}, 2000, function(){continueAnimate(collider1); 
 	});
-	$(collider2).animate({top: currentPosition2[0] + newPositions[1][0] + 50, left: currentPosition2[1] + newPositions[1][1]}, 2000, function(){
-		continueAnimate(collider2); 
+	$(collider2).animate({top: currentPosition2[0] + newPositions[1][0] + 50, left: currentPosition2[1] + 
+		newPositions[1][1]}, 2000, function(){continueAnimate(collider2); 
 	});
+};
+
+//Creates the new positions for the collided posts
+function getDirectionPositions(direction) {
+	var newPositions;
+	if (direction === 'N' || direction === "NE" || direction === 'NW') {
+		newPositions = [(-10, 0), (10, 0)];
+	} else if (direction === 'S' || direction === "SE" || direction === 'SW') {
+		newPositions = [(10, 0), (-10, 0)];
+	} else if (direction === 'E') {
+		newPositions = [(0, -10), (0, 10)];
+	} else {
+		newPositions = [(0, 10), (0, -10)];
+	}
+	return newPositions;
 };
